@@ -1,0 +1,31 @@
+.card_container {
+  width: 1000px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.card {
+  margin-bottom: 20px;
+  padding: 5px 10px;
+  border-left: 3px solid #58A9A5;
+  border-radius: 10px;
+  transition: all 0.2s linear;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 10px 5px 5px #58A9A5;
+  }
+
+  &_title {
+    font-size: 25px;
+    font-weight: 700;
+    color: #58A9A5;
+  }
+
+  &_author {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+    color: #486958;
+  }
+}
