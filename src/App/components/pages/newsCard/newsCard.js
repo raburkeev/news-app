@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import style from './newsCard.module.scss'
 
-const NewsCard = ({title}) => {
+const NewsCard = ({title, name}) => {
     return (
         <div className={style.card_container}>
             <div className={style.card}>
                 <h3 className={style.card_title}>{title}</h3>
                 <p className={style.card_author}>
-                    user long long name
+                    Автор: {name}
                 </p>
             </div>
         </div>
@@ -16,7 +16,8 @@ const NewsCard = ({title}) => {
 }
 
 NewsCard.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
 }
 
 export default NewsCard

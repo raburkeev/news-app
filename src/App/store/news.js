@@ -4,13 +4,12 @@ import newsService from '../services/news.service'
 
 export const loadNews = createAsyncThunk(
     'news/loadNews',
-    async (_, {rejectWithValue}) => {
+    async (_, {rejectedWithValue}) => {
         try {
-            const {data} = await newsService.fetchAll()
+            const data = await newsService.fetchAll()
             return data
-        } catch (e) {
-            console.log(e)
-            rejectWithValue(e.message)
+        } catch (error) {
+            rejectedWithValue(error.message)
         }
     }
 )
@@ -43,5 +42,8 @@ const newsSlice = createSlice({
 
 const {reducer: newsReducer, actions} = newsSlice
 const {} = actions
+
+export const getNewsList = () => (state) => state.news.entities
+export const getNewsLoadingStatus = () => (state) => state.news.isLoading
 
 export default newsReducer
