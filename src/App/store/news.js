@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import newsService from '../services/news.service'
 
@@ -39,8 +38,7 @@ const newsSlice = createSlice({
     }
 })
 
-const {reducer: newsReducer, actions} = newsSlice
-const {} = actions
+const {reducer: newsReducer} = newsSlice
 
 export const getNewsList = () => (state) => state.news.entities
 export const getNewsLoadingStatus = () => (state) => state.news.isLoading

@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import style from './newsListPage.module.scss'
@@ -10,6 +9,7 @@ import {getAuthorName} from '../../../utils/getAuthorName'
 import RefreshButton from '../../refreshButton/refreshButton'
 import Pagination from '../../common/pagination/pagination'
 import {paginate} from '../../../utils/paginate'
+import Loader from '../../common/loader/loader'
 
 const NewsListPage = () => {
     const history = useHistory()
@@ -38,7 +38,7 @@ const NewsListPage = () => {
     if (errors.news || errors.authors) {
         return (
             <div className={style.container}>
-                <RefreshButton/>
+                <RefreshButton target="news"/>
                 {Object.keys(errors).map((item) => (
                     <p className={style.error} key={errors[item]}>{errors[item]}</p>
                 ))}
@@ -46,30 +46,34 @@ const NewsListPage = () => {
         )
     }
 
-    return !isNewsLoading && !isAuthorsLoading
-        ? (
-            <div className={style.container}>
-                <RefreshButton/>
-                <div className={style.news_container}>
-                    {newsCrop.map((item) => (
-                        <div key={item.id} onClick={() => handleCardClick(item.id)}>
-                            <NewsCard
-                                title={item.title}
-                                name={getAuthorName(item.userId, authorsList)}
-                                onClick={handleCardClick}
-                            />
+    return (
+        <div className={style.container}>
+            <RefreshButton target="news"/>
+            {!isNewsLoading && !isAuthorsLoading
+                ? (
+                    <>
+                        <div className={style.news_container}>
+                            {newsCrop.map((item) => (
+                                <div key={item.id} onClick={() => handleCardClick(item.id)}>
+                                    <NewsCard
+                                        title={item.title}
+                                        name={getAuthorName(item.userId, authorsList)}
+                                        onClick={handleCardClick}
+                                    />
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-                <Pagination
-                    itemsCount={newsList.length}
-                    currentPage={currentPage}
-                    pageSize={pageSize}
-                    onPageChange={handlePageChange}
-                />
-            </div>
-        )
-        : 'Loading...'
+                        <Pagination
+                            itemsCount={newsList.length}
+                            currentPage={currentPage}
+                            pageSize={pageSize}
+                            onPageChange={handlePageChange}
+                        />
+                    </>
+                )
+                : <Loader /> }
+        </div>
+    )
 }
 
 export default NewsListPage

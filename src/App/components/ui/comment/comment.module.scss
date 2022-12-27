@@ -1,0 +1,21 @@
+.comment {
+  margin-bottom: 30px;
+  transition: all 0.3s linear;
+
+  &:hover {
+    box-shadow:  5px 0 20px #58A9A5;
+  }
+
+  &_author {
+    font-size: 18px;
+    color: #486958;
+    margin-bottom: 5px;
+    padding-left: 5px;
+  }
+
+  &_content {
+    padding-left: 10px;
+    font-size: 15px;
+    color: #486958;
+  }
+}
