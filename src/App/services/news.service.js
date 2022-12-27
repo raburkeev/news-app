@@ -4,8 +4,7 @@ const newsEndpoint = 'posts/'
 
 const newsService = {
     fetchAll: async () => {
-        const data = await httpService.get(newsEndpoint)
-        return data
+        return await httpService.get(newsEndpoint)
     }
 }
 

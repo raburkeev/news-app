@@ -4,12 +4,11 @@ import newsService from '../services/news.service'
 
 export const loadNews = createAsyncThunk(
     'news/loadNews',
-    async (_, {rejectedWithValue}) => {
+    async (_, {rejectWithValue}) => {
         try {
-            const data = await newsService.fetchAll()
-            return data
+            return await newsService.fetchAll()
         } catch (error) {
-            rejectedWithValue(error.message)
+            return rejectWithValue('Произошла ошибка при загрузке списка новостей. Попробуйте обновить страницу или нажмите кнопку обновить.')
         }
     }
 )
@@ -45,5 +44,7 @@ const {} = actions
 
 export const getNewsList = () => (state) => state.news.entities
 export const getNewsLoadingStatus = () => (state) => state.news.isLoading
+export const getNewsError = () => (state) => state.news.error
+export const getNewsById = (newsId) => (state) => state.news.entities ? state.news.entities.find((item) => item.id === newsId) : {}
 
 export default newsReducer

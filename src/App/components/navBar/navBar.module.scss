@@ -1,25 +1,32 @@
 .container {
   margin: 30px 0;
-
 }
 
 .nav_list {
   list-style: none;
   display: flex;
   justify-content: center;
+  align-items: center;
+  max-width: 1300px;
   gap: 30px;
 
   &_item_title {
     font-size: 35px;
     line-height: 37.5px;
     color: #404242;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s linear;
+
+    &:hover {
+      color: #58A9A5;
+    }
 
     &_active {
       font-size: 35px;
-      font-weight: 700;
       line-height: 37.5px;
       color: #58A9A5;
-      transition: color 0.3s linear;
+      border-bottom: 3px solid #FEC62D;
+      transition: all 0.3s linear;
     }
   }
 }

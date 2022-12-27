@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.news_container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.error {
+  text-align: center;
+  color: #FF6666;
+  font-size: 20px;
+}

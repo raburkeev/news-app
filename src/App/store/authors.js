@@ -4,12 +4,11 @@ import authorsService from '../services/authors.service'
 
 export const loadAuthors = createAsyncThunk(
     'authors/loadAuthors',
-    async () => {
+    async (_, {rejectWithValue}) => {
         try {
-            const data = await authorsService.fetchAll()
-            return data
+            return await authorsService.fetchAll()
         } catch (e) {
-            console.log(e.message)
+            return rejectWithValue('Произошла ошибка при загрузке списка авторов. Попробуйте обновить страницу или нажмите кнопку обновить.')
         }
     }
 )
@@ -43,5 +42,7 @@ const {} = actions
 
 export const getAuthorsList = () => (state) => state.authors.entities
 export const getAuthorsLoadingStatus = () => (state) => state.authors.isLoading
+export const getAuthorsError = () => (state) => state.authors.error
+export const getAuthorById = (authorId) => (state) => state.authors.entities ? state.authors.entities.find((item) => item.id === authorId) : {}
 
 export default authorsReducer

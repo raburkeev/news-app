@@ -1,0 +1,28 @@
+.pagination_container {
+  margin-bottom: 15px;
+}
+
+.pagination_list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  &_item {
+    font-size: 25px;
+    cursor: pointer;
+    color: #58A9A5;
+
+    &:hover {
+      color: #486958;
+      transition: all 0.3s ease;
+    }
+
+    &_active {
+      font-size: 25px;
+      cursor: pointer;
+      color: #486958;
+      border-bottom: 3px solid #FEC62D;
+    }
+  }
+}

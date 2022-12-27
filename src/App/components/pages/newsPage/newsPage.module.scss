@@ -1,0 +1,39 @@
+.news_container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.author {
+  text-align: center;
+  max-width: 300px;
+  border-left:  3px solid #58A9A5;
+  border-radius: 10px;
+  padding: 5px 10px;
+  box-shadow: 5px 3px 3px #58A9A5;
+
+  &_title {
+    font-size: 30px;
+    color: #58A9A5;
+  }
+
+  &_name {
+    font-size: 25px;
+    color: #486958;
+  }
+
+  &_email {
+    font-size: 15px;
+    color: #486958;
+  }
+
+  &_website {
+    font-size: 15px;
+    color: #486958;
+  }
+}
+
+.news_content {
+  max-width: 1200px;
+}
+
