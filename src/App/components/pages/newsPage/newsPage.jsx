@@ -27,6 +27,8 @@ const NewsPage = () => {
             </div>
             <div className={style.news_content}>
                 <div className={style.news_content_body}>
+                    <h2 className={style.news_content_body_title}>{news.title}</h2>
+                    <p className={style.news_content_body_entry}>{news.body}</p>
 
                 </div>
                 <div className={style.news_content_comments}>

@@ -1,6 +1,7 @@
 .news_container {
+  margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   gap: 30px;
 }
 
@@ -35,5 +36,25 @@
 
 .news_content {
   max-width: 1200px;
+  width: 1000px;
+  border-left:  3px solid #58A9A5;
+  border-radius: 10px;
+  padding: 5px 10px;
+
+  &_body {
+
+  }
+
+  &_body_title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 35px;
+    margin-bottom: 10px;
+    color: #58A9A5;
+  }
+
+  &_body_entry {
+    font-size: 25px;
+  }
 }
 
