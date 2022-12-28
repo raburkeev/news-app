@@ -7,7 +7,7 @@ export const loadCommentsByNewsId = createAsyncThunk(
         try {
             return await newsService.getComments(newsId)
         } catch (e) {
-            return rejectWithValue(e.message)
+            return rejectWithValue('Произошла ошибка при обращении к серверу, повторите позже или нажмите кнопку обновить.')
         }
     }
 )
@@ -40,5 +40,6 @@ const {reducer: commentsReducer} = commentsSlice
 
 export const getCommentsList = () => (state) => state.comments.entities ? state.comments.entities : []
 export const getCommentsLoadingStatus = () => (state) => state.comments.isLoading
+export const getCommentsError = () => (state) => state.comments.error
 
 export default commentsReducer
