@@ -7,9 +7,8 @@ const http = axios.create({
 
 http.interceptors.response.use(
     (res) => {
-        res = res.data
-        if (res && res[0].name && res[0].username) {
-            res = res.map(el => (
+        if (res.data && res.data[0].name && res.data[0].username) {
+            res = res.data.map(el => (
                 {
                     id: el.id,
                     name: el.name,

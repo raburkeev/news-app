@@ -26,7 +26,7 @@ const commentsSlice = createSlice({
             state.error = false
         },
         [loadCommentsByNewsId.fulfilled]: (state, action) => {
-            state.entities = action.payload
+            state.entities = action.payload.data
             state.isLoading = false
         },
         [loadCommentsByNewsId.rejected]: (state, action) => {

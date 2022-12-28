@@ -1,18 +1,19 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useHistory} from 'react-router-dom'
 import style from './newsListPage.module.scss'
 import NewsCard from './newsCard/newsCard'
-import {useSelector} from 'react-redux'
-import {getNewsError, getNewsList, getNewsLoadingStatus} from '../../../store/news'
+import {useDispatch, useSelector} from 'react-redux'
+import {getNewsError, getNewsList, getNewsLoadingStatus, getTotalNewsCount} from '../../../store/news'
 import {getAuthorsError, getAuthorsList, getAuthorsLoadingStatus} from '../../../store/authors'
 import {getAuthorName} from '../../../utils/getAuthorName'
 import RefreshButton from '../../refreshButton/refreshButton'
 import Pagination from '../../common/pagination/pagination'
-import {paginate} from '../../../utils/paginate'
 import Loader from '../../common/loader/loader'
+import {currentPageChanged, getCurrentPage} from '../../../store/pages'
 
 const NewsListPage = () => {
     const history = useHistory()
+    const dispatch = useDispatch()
     const newsList = useSelector(getNewsList())
     const isNewsLoading = useSelector(getNewsLoadingStatus())
     const authorsList = useSelector(getAuthorsList())
@@ -21,13 +22,12 @@ const NewsListPage = () => {
         news: useSelector(getNewsError()),
         authors: useSelector(getAuthorsError())
     }
-    const [currentPage, setCurrentPage] = useState(1)
+    const currentPage = useSelector(getCurrentPage())
+    const totalNewsCount = useSelector(getTotalNewsCount())
     const pageSize = 10
 
-    const newsCrop = newsList ? paginate(newsList, currentPage, pageSize) : []
-
     const handlePageChange = (pageIndex) => {
-        setCurrentPage(pageIndex)
+        dispatch(currentPageChanged(pageIndex))
         window.scrollTo(0, 0)
     }
 
@@ -53,7 +53,7 @@ const NewsListPage = () => {
                 ? (
                     <>
                         <div className={style.news_container}>
-                            {newsCrop.map((item) => (
+                            {newsList.map((item) => (
                                 <div key={item.id} onClick={() => handleCardClick(item.id)}>
                                     <NewsCard
                                         title={item.title}
@@ -64,7 +64,7 @@ const NewsListPage = () => {
                             ))}
                         </div>
                         <Pagination
-                            itemsCount={newsList.length}
+                            itemsCount={totalNewsCount}
                             currentPage={currentPage}
                             pageSize={pageSize}
                             onPageChange={handlePageChange}

@@ -3,9 +3,10 @@ import newsService from '../services/news.service'
 
 export const loadNews = createAsyncThunk(
     'news/loadNews',
-    async (_, {rejectWithValue}) => {
+    async (_, {rejectWithValue, getState}) => {
+        const page = getState().pages.currentPage
         try {
-            return await newsService.fetchAll()
+            return await newsService.fetchAll(page)
         } catch (error) {
             return rejectWithValue('Произошла ошибка при загрузке списка новостей. Попробуйте обновить страницу или нажмите кнопку обновить.')
         }
@@ -16,6 +17,7 @@ const newsSlice = createSlice({
     name: 'news',
     initialState: {
         entities: null,
+        totalCount: null,
         isLoading: true,
         error: null,
         lastFetch: null
@@ -27,7 +29,8 @@ const newsSlice = createSlice({
             state.error = null
         },
         [loadNews.fulfilled]: (state, action) => {
-            state.entities = action.payload
+            state.entities = action.payload.data
+            state.totalCount = Number(action.payload.headers['x-total-count'])
             state.isLoading = false
         },
         [loadNews.rejected]: (state, action) => {
@@ -44,5 +47,6 @@ export const getNewsList = () => (state) => state.news.entities
 export const getNewsLoadingStatus = () => (state) => state.news.isLoading
 export const getNewsError = () => (state) => state.news.error
 export const getNewsById = (newsId) => (state) => state.news.entities ? state.news.entities.find((item) => item.id === newsId) : {}
+export const getTotalNewsCount = () => (state) => state.news.totalCount
 
 export default newsReducer
