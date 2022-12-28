@@ -2,6 +2,6 @@
 
 ### `Build with: HTML, SCSS, JavaScript, React, ReduxToolkit`
 
-#### Посмотреть на приложение можно [тут](https://dainty-zabaione-62faea.netlify.app/)
+#### Посмотреть на приложение можно [тут](https://magnificent-souffle-77eb04.netlify.app/)
 
 [Telegram](https://t.me/raburkeev)
