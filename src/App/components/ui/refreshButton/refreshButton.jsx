@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import {useParams} from 'react-router-dom'
 import style from './refreshButton.module.scss'
 import {useDispatch} from 'react-redux'
-import {loadNews} from '../../store/news'
-import {loadAuthors} from '../../store/authors'
-import {loadCommentsByNewsId} from '../../store/comments'
+import {loadNews} from '../../../store/news'
+import {loadAuthors} from '../../../store/authors'
+import {loadCommentsByNewsId} from '../../../store/comments'
 
 const RefreshButton = ({target}) => {
     const dispatch = useDispatch()

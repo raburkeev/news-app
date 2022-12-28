@@ -8,6 +8,14 @@ const CommentsLoader = ({children, pageId}) => {
 
     useEffect(() => {
         dispatch(loadCommentsByNewsId(pageId))
+
+        const refreshInterval = setInterval(() => {
+            dispatch(loadCommentsByNewsId(pageId))
+        }, 60000)
+
+        return () => {
+            clearInterval(refreshInterval)
+        }
     }, [])
 
     return children

@@ -1,55 +1,36 @@
-/*eslint-disable*/
 import React from 'react'
 import {useSelector} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import style from './newsPage.module.scss'
-import {getNewsById} from '../../../store/news'
-import {getAuthorById} from '../../../store/authors'
-import CommentsLoader from '../../hoc/commentsLoader'
-import {getCommentsList, getCommentsLoadingStatus} from '../../../store/comments'
-import CommentsList from '../../ui/commentsList/commentsList'
-import RefreshButton from '../../refreshButton/refreshButton'
+import {getNewsById, getNewsLoadingStatus} from '../../../store/news'
+import {getAuthorById, getAuthorsLoadingStatus} from '../../../store/authors'
 import Loader from '../../common/loader/loader'
+import AuthorCard from './authorCard/authorCard'
+import NewsContentCard from './newsContentCard/newsContentCard'
+import CommentsCard from './commentsCard/commentsCard'
+import BackHistoryButton from '../../common/backHistoryButton/backHistoryButton'
 
 const NewsPage = () => {
     const {newsId} = useParams()
     const news = useSelector(getNewsById(+newsId))
+    const isNewsLoading = useSelector(getNewsLoadingStatus())
     const author = useSelector(getAuthorById(news.userId))
-    const comments = useSelector(getCommentsList())
-    const isCommentsLoading = useSelector(getCommentsLoadingStatus())
+    const isAuthorLoading = useSelector(getAuthorsLoadingStatus())
 
-    return (
-        <div className={style.news_container}>
-            <div className={style.author}>
-                <h4 className={style.author_title}>Автор</h4>
-                <p className={style.author_name}>
-                    {author.name}
-                </p>
-                <p className={style.author_email}>
-                    email: {author.email}
-                </p>
-                <p className={style.author_website}>
-                    site: {author.website}
-                </p>
-            </div>
-            <div className={style.news_content}>
-                <div className={style.news_content_body}>
-                    <h2 className={style.news_content_body_title}>{news.title}</h2>
-                    <p className={style.news_content_body_entry}>{news.body}</p>
-
+    return !isNewsLoading && !isAuthorLoading
+        ? (
+            <div className={style.news_container}>
+                <div className={style.news_info}>
+                    <AuthorCard website={author.website} email={author.email} name={author.name}/>
+                    <BackHistoryButton />
                 </div>
-                <CommentsLoader pageId={newsId}>
-                    <div className={style.news_content_comments}>
-                        <h4 className={style.news_content_comments_title}>Comments </h4>
-                        <RefreshButton target="comments"/>
-                        {isCommentsLoading
-                            ? <Loader/>
-                            : <CommentsList items={comments}/>}
-                    </div>
-                </CommentsLoader>
+                <div className={style.news_content}>
+                    <NewsContentCard body={news.body} title={news.title}/>
+                    <CommentsCard newsId={newsId}/>
+                </div>
             </div>
-        </div>
-    )
+        )
+        : <Loader />
 }
 
 export default NewsPage
